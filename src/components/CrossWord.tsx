@@ -48,7 +48,7 @@ const CrossWord: React.FC = () => {
   };
 
   // Load initial state from local storage or initialize
-  const initialInputs = loadFromLocalStorage(STORAGE_KEY) || Array(100).fill('');
+  const initialInputs = loadFromLocalStorage(STORAGE_KEY) || Array(400).fill('');
   const initialScore = loadFromLocalStorage(SCORE_KEY) || 0;
   const [inputs, setInputs] = useState<string[]>(initialInputs);
   const [feedback, setFeedback] = useState<Record<string, boolean>>({});
@@ -78,7 +78,7 @@ const CrossWord: React.FC = () => {
   };
 
   const getCellData = () => {
-    const cellData = Array.from({ length: 100 }, () => ({
+    const cellData = Array.from({ length: 400 }, () => ({
       isInteractive: false,
       value: '',
       questionNumber: undefined as number | undefined,
@@ -87,7 +87,7 @@ const CrossWord: React.FC = () => {
 
     Object.entries(data.across).forEach(([key, { answer, row, col }]) => {
       answer.split('').forEach((_, index) => {
-        const cellIndex = row * 10 + (col + index);
+        const cellIndex = row * 20 + (col + index);
         cellData[cellIndex] = {
           isInteractive: true,
           value: inputs[cellIndex],
@@ -99,7 +99,7 @@ const CrossWord: React.FC = () => {
 
     Object.entries(data.down).forEach(([key, { answer, row, col }]) => {
       answer.split('').forEach((_, index) => {
-        const cellIndex = (row + index) * 10 + col;
+        const cellIndex = (row + index) * 20 + col;
         cellData[cellIndex] = {
           isInteractive: true,
           value: inputs[cellIndex],
