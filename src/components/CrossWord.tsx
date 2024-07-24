@@ -115,7 +115,7 @@ const CrossWord: React.FC = () => {
   const checkWord = (_: string, answer: string, row: number, col: number, isAcross: boolean) => {
     let isCorrect = true;
     answer.split('').forEach((char, index) => {
-      const cellIndex = isAcross ? row * 10 + (col + index) : (row + index) * 10 + col;
+      const cellIndex = isAcross ? row * 20 + (col + index) : (row + index) * 20 + col;
       if (inputs[cellIndex] !== char) {
         isCorrect = false;
       }
