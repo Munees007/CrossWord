@@ -87,11 +87,11 @@ const CrossWord: React.FC = () => {
 
     Object.entries(data.across).forEach(([key, { answer, row, col }]) => {
       answer.split('').forEach((_, index) => {
-        const cellIndex = row * 10 + (col + index);
+        const cellIndex = row * 20 + (col + index);
         cellData[cellIndex] = {
           isInteractive: true,
           value: inputs[cellIndex],
-          questionNumber: index === 0 ? parseInt(key, 10) : undefined,
+          questionNumber: index === 0 ? parseInt(key, 20) : undefined,
           isCorrect:feedback[key] ?? undefined
         };
       });
@@ -99,11 +99,11 @@ const CrossWord: React.FC = () => {
 
     Object.entries(data.down).forEach(([key, { answer, row, col }]) => {
       answer.split('').forEach((_, index) => {
-        const cellIndex = (row + index) * 10 + col;
+        const cellIndex = (row + index) * 20 + col;
         cellData[cellIndex] = {
           isInteractive: true,
           value: inputs[cellIndex],
-          questionNumber: index === 0 ? parseInt(key, 10) : undefined,
+          questionNumber: index === 0 ? parseInt(key, 20) : undefined,
           isCorrect:feedback[key] ?? undefined
         };
       });
@@ -115,7 +115,7 @@ const CrossWord: React.FC = () => {
   const checkWord = (_: string, answer: string, row: number, col: number, isAcross: boolean) => {
     let isCorrect = true;
     answer.split('').forEach((char, index) => {
-      const cellIndex = isAcross ? row * 10 + (col + index) : (row + index) * 10 + col;
+      const cellIndex = isAcross ? row * 20 + (col + index) : (row + index) * 20 + col;
       if (inputs[cellIndex] !== char) {
         isCorrect = false;
       }
@@ -148,7 +148,7 @@ const CrossWord: React.FC = () => {
   return (
     <div className="w-full h-screen m-4 justify-center items-center flex">
       <div className='flex flex-col'>
-      <div className="grid grid-cols-10 grid-rows-10 bg-blue-300 w-[32rem] h-[32rem]">
+      <div className="grid grid-cols-20 grid-rows-20 bg-blue-300 w-[42rem] h-[42rem]">
         {cellData.map((cell, index) => (
           <GridBtn
             key={index}
