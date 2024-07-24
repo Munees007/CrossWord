@@ -148,7 +148,12 @@ const CrossWord: React.FC = () => {
   return (
     <div className="w-full h-screen m-4 justify-center items-center flex">
       <div className='flex flex-col'>
-      <div className="grid grid-cols-20 grid-rows-20 bg-blue-300 w-[42rem] h-[42rem]">
+      <div className=" bg-blue-300 w-[42rem] h-[42rem]" 
+      style={{
+        display:"grid",
+        gridTemplateColumns: "repeat(20, 1fr)",
+        gridTemplateRows: "repeat(20, 1fr)",
+      }}>
         {cellData.map((cell, index) => (
           <GridBtn
             key={index}
