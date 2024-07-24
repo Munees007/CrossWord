@@ -168,11 +168,11 @@ const CrossWord: React.FC = () => {
       <div className="mt-2 text-lg">
         Score: {score}
       </div>
-      {Object.entries(feedback).map(([key, correct]) => (
+{/*       {Object.entries(feedback).map(([key, correct]) => (
         <p key={key} className="mt-2 text-lg">
           {`Question ${key}: ${correct ? 'Correct' : 'Incorrect'}`}
         </p>
-      ))}
+      ))} */}
       </div>
     </div>
   );
