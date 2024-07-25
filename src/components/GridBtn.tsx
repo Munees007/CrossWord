@@ -5,7 +5,8 @@ interface GridBtnProps {
   onChange?: (value: string) => void;
   value?: string;
   questionNumber?: number;
-  isCorrect?:boolean
+  isCorrect?: boolean;
+  disabled?: boolean;
 }
 
 const GridBtn: React.FC<GridBtnProps> = ({
@@ -13,11 +14,12 @@ const GridBtn: React.FC<GridBtnProps> = ({
   onChange,
   value,
   questionNumber,
-  isCorrect
+  isCorrect,
+  disabled = false,
 }) => {
   return (
     <div
-      className={`border ${isInteractive ? 'bg-white' : 'bg-blue-300'} ${isCorrect ? 'bg-green-500' : isInteractive ? 'bg-white' :'bg-blue-300'} border-black`}
+      className={`border ${isCorrect ? 'bg-green-500' : isInteractive ? 'bg-white' : 'bg-blue-300'} border-black`}
       style={{
         boxSizing: 'border-box',
         width: '100%',
@@ -25,8 +27,11 @@ const GridBtn: React.FC<GridBtnProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        cursor: isInteractive && !disabled ? 'text' : 'default',
+        opacity: disabled ? 0.5 : 1,
         position: 'relative',
       }}
+      aria-disabled={disabled}
     >
       {isInteractive ? (
         <input
@@ -34,16 +39,26 @@ const GridBtn: React.FC<GridBtnProps> = ({
           maxLength={1}
           value={value}
           onChange={(e) => onChange?.(e.target.value.toUpperCase())}
-          className="w-full h-full bg-transparent border-none text-center"
+          className={`w-full h-full bg-transparent border-none text-center ${disabled ? 'cursor-not-allowed' : ''}`}
           style={{ boxSizing: 'border-box' }}
+          disabled={disabled}
+          aria-label={`Cell ${questionNumber}`}
         />
       ) : (
         <div className="w-full h-full bg-transparent" />
       )}
       {questionNumber !== undefined && (
-        <p className="absolute text-xs text-black/50" style={{ top: 2, left: 2 }}>
-          {questionNumber}
-        </p>
+        <div
+          className={`absolute flex items-center justify-center ${questionNumber === 14 || questionNumber === 17 ? 'z-50' : 'z-10'}`}
+          style={{
+            top: questionNumber === 14 || questionNumber === 17 ? '50%' : 0,
+            left: questionNumber === 14 || questionNumber === 17 ? '60%' : 0,
+            transform: questionNumber === 14 || questionNumber === 17 ? 'translate(-50%, -50%)' : 'none',
+            padding: questionNumber === 14 || questionNumber === 17 ? '2px' : '2px',
+          }}
+        >
+          <p className="text-xs text-black/50">{questionNumber}</p>
+        </div>
       )}
     </div>
   );
