@@ -10,7 +10,7 @@ import Dialog from './Dialog';
 const HomePage = () => {
     const [currentImg, setCurrentImg] = useState<string>("w2");
     const [showDialog, setShowDialog] = useState<boolean>(true); // Show dialog initially
-    const [fullscreenRequested,
+    const [_,
 setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request status
     const backGround = ["w1", "w2", "w3"];
     const navigate = useNavigate();
@@ -45,6 +45,7 @@ setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request 
         } else if (elem.mozRequestFullScreen) { // Firefox
             elem.mozRequestFullScreen();
         }
+        
     };
 
     const handleConfirmFullscreen = () => {
