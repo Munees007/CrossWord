@@ -78,11 +78,9 @@ const CrossWord: React.FC = () => {
   };
 
   // Load initial state from local storage or initialize
-<<<<<<< HEAD
-  const initialInputs = loadFromLocalStorage(STORAGE_KEY) || Array(400).fill("");
-=======
+
   const initialInputs = loadFromLocalStorage(STORAGE_KEY) || Array(400).fill('');
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
+
   const initialScore = loadFromLocalStorage(SCORE_KEY) || 0;
   const initialTimer = loadFromLocalStorage(TIMER_KEY) || 25 * 60; // 25 minutes in seconds
 
@@ -141,43 +139,30 @@ const CrossWord: React.FC = () => {
     }));
 
     Object.entries(data.across).forEach(([key, { answer, row, col }]) => {
-<<<<<<< HEAD
-      answer.split("").forEach((_, index) => {
-=======
+
       answer.split('').forEach((_, index) => {
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
+
         const cellIndex = row * 20 + (col + index);
         cellData[cellIndex] = {
           isInteractive: true,
           value: inputs[cellIndex],
-<<<<<<< HEAD
           questionNumber: index === 0 ? parseInt(key, 10) : undefined,
           isCorrect: feedback[key] ?? undefined,
-=======
-          questionNumber: index === 0 ? parseInt(key, 20) : undefined,
-          isCorrect:feedback[key] ?? undefined
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
+
         };
       });
     });
 
     Object.entries(data.down).forEach(([key, { answer, row, col }]) => {
-<<<<<<< HEAD
-      answer.split("").forEach((_, index) => {
-=======
+
       answer.split('').forEach((_, index) => {
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
+
         const cellIndex = (row + index) * 20 + col;
         cellData[cellIndex] = {
           isInteractive: true,
           value: inputs[cellIndex],
-<<<<<<< HEAD
           questionNumber: index === 0 ? parseInt(key, 10) : undefined,
           isCorrect: feedback[key] ?? undefined,
-=======
-          questionNumber: index === 0 ? parseInt(key, 20) : undefined,
-          isCorrect:feedback[key] ?? undefined
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
         };
       });
     });
@@ -220,15 +205,9 @@ const CrossWord: React.FC = () => {
     isAcross: boolean
   ) => {
     let isCorrect = true;
-<<<<<<< HEAD
-    answer.split("").forEach((char, index) => {
-      const cellIndex = isAcross
-        ? row * 20 + (col + index)
-        : (row + index) * 20 + col;
-=======
     answer.split('').forEach((char, index) => {
       const cellIndex = isAcross ? row * 20 + (col + index) : (row + index) * 20 + col;
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
+
       if (inputs[cellIndex] !== char) {
         isCorrect = false;
       }
@@ -266,7 +245,7 @@ const CrossWord: React.FC = () => {
   };
 
   return (
-<<<<<<< HEAD
+
     <div className="w-full h-screen items-center flex bg-black">
       <div className="w-[65rem] h-screen overflow-auto bg-blue-400">
         <Question />
@@ -309,41 +288,7 @@ const CrossWord: React.FC = () => {
           <RiTimerFlashLine size={30} className="" />
           <p className="text-2xl font-playfair">{formatTime(timer)}</p>
         </div>
-=======
-    <div className="w-full h-screen m-4 justify-center items-center flex">
-      <div className='flex flex-col'>
-      <div className=" bg-blue-300 w-[42rem] h-[42rem]" 
-      style={{
-        display:"grid",
-        gridTemplateColumns: "repeat(20, 1fr)",
-        gridTemplateRows: "repeat(20, 1fr)",
-      }}>
-        {cellData.map((cell, index) => (
-          <GridBtn
-            key={index}
-            isInteractive={cell.isInteractive}
-            onChange={(value) => cell.isInteractive && handleChange(index, value)}
-            value={cell.value}
-            questionNumber={cell.questionNumber}
-            isCorrect={cell.isCorrect}
-          />
-        ))}
-      </div>
-      <button onClick={checkAnswers} className="mt-4 p-2 bg-green-500 text-white rounded-md">
-        Check Answers
-      </button>
-      </div>
-      <div className='flex flex-col'>
-      <div className="mt-2 text-lg">
-        Score: {score}
-      </div>
-{/*       {Object.entries(feedback).map(([key, correct]) => (
-        <p key={key} className="mt-2 text-lg">
-          {`Question ${key}: ${correct ? 'Correct' : 'Incorrect'}`}
-        </p>
-      ))} */}
->>>>>>> 85ccf681b0a08b0b6145fa900d10ce6b229e9741
-      </div>
+    </div>
     </div>
   );
 };
