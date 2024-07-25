@@ -19,7 +19,7 @@ const GridBtn: React.FC<GridBtnProps> = ({
 }) => {
   return (
     <div
-      className={`border ${isCorrect ? 'bg-green-500' : isInteractive ? 'bg-white' : 'bg-blue-300'} border-black`}
+      className={`border ${isCorrect ? 'bg-green-500' : isInteractive ? 'bg-yellow-500' : 'bg-[#D2DBEC]'} border-black`}
       style={{
         boxSizing: 'border-box',
         width: '100%',
@@ -39,7 +39,7 @@ const GridBtn: React.FC<GridBtnProps> = ({
           maxLength={1}
           value={value}
           onChange={(e) => onChange?.(e.target.value.toUpperCase())}
-          className={`w-full h-full bg-transparent border-none text-center ${disabled ? 'cursor-not-allowed' : ''}`}
+          className={`w-full h-full font-bold bg-transparent border-none text-center ${disabled ? 'cursor-not-allowed' : ''}`}
           style={{ boxSizing: 'border-box' }}
           disabled={disabled}
           aria-label={`Cell ${questionNumber}`}

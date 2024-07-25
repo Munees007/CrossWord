@@ -65,7 +65,7 @@ const Question = () => {
         answer: "RAM",
       },
       15: {
-        clue: "The __________ statement in SQL is used to modify data in existing rows based on a condition. //UPDATE",
+        clue: "The __________ statement in SQL is used to modify data in existing rows based on a condition.",
         answer: "UPDATE",
       },
       16: {
@@ -75,7 +75,7 @@ const Question = () => {
     },
   };
   return (
-    <div className="p-3 font-playfair w-full">
+    <div className="bg-[#C72E8F]  border-2  border-black p-3 font-playfair w-full text-white">
         <p className="text-2xl font-extrabold">ACROSS</p>
       {Object.entries(ques.across).map(([key, { clue }]) => (
         <div key={key} className="flex my-2 items-center text-justify justify-between">

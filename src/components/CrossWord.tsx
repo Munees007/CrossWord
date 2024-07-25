@@ -52,7 +52,7 @@ const loadTimerFinished = () => {
 const CrossWord: React.FC = () => {
   const data = {
     across: {
-      1: { answer: "MOUSE", row: 0, col: 9 },
+      1: { answer: "MOUSE", row: 0, col: 8 },
       5: { answer: "KEYBOARD", row: 2, col: 0 },
       6: { answer: "IBM", row: 2, col: 11 },
       9: { answer: "BIT", row: 4, col: 9 },
@@ -64,7 +64,7 @@ const CrossWord: React.FC = () => {
       19: { answer: "SPEAKERS", row: 15, col: 7 },
     },
     down: {
-      2: { answer: "SHIFT", row: 0, col: 12 },
+      2: { answer: "SHIFT", row: 0, col: 11 },
       3: { answer: "DEVICE", row: 1, col: 1 },
       4: { answer: "ROM", row: 1, col: 4 },
       7: { answer: "MONITOR", row: 2, col: 13 },
@@ -72,7 +72,7 @@ const CrossWord: React.FC = () => {
       9: { answer: "BOOT", row: 4, col: 9 },
       10: { answer: "LAPTOP", row: 5, col: 6 },
       13: { answer: "RAM", row: 8, col: 3 },
-      15: { answer: "UPLOAD", row: 8, col: 17 },
+      15: { answer: "UPDATE", row: 8, col: 17 },
       16: { answer: "NETWORK", row: 9, col: 11 },
     },
   };
@@ -129,6 +129,7 @@ const CrossWord: React.FC = () => {
     newInputs[index] = value;
     setInputs(newInputs);
   };
+
 
   const getCellData = () => {
     const cellData = Array.from({ length: 400 }, () => ({
@@ -215,6 +216,7 @@ const CrossWord: React.FC = () => {
     return isCorrect;
   };
 
+
   const checkAnswers = () => {
     const newFeedback: Record<string, boolean> = {};
     let newScore = 0;
@@ -244,17 +246,25 @@ const CrossWord: React.FC = () => {
     return `${minutes}m ${remainingSeconds}s`;
   };
 
+  useEffect(()=>{
+
+      if(score == 20)
+        {
+          setIsTimerRunning(false)
+        }
+  },[score])
+
   return (
 
-    <div className="w-full h-screen items-center flex bg-black">
+    <div className="bg-[#3052A1] w-full h-screen items-center flex">
       <div className="w-[65rem] h-screen overflow-auto bg-blue-400">
         <Question />
       </div>
       <div className="flex flex-col p-4 w-full h-full inset-0 justify-center items-center">
-        {/* <div className="flex flex-col">
-          <div className="text-lg">Score: {score}</div>
-          <div className="text-lg">{formatTime(timer)}</div>
-        </div> */}
+        <div className="flex flex-col">
+          <div className="text-lg text-white">Score: {score}</div>
+          {/* <div className="text-lg">{formatTime(timer)}</div> */}
+        </div>
         <div
           className="bg-blue-300 w-[40rem] h-[40rem]"
           style={{

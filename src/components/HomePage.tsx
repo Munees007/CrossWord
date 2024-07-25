@@ -4,22 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { getFlagData } from "./storeData";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/ReactToastify.min.css';
-import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
 import Dialog from './Dialog';
 
 const HomePage = () => {
-    const [currentImg, setCurrentImg] = useState<string>("w2");
     const [showDialog, setShowDialog] = useState<boolean>(true); // Show dialog initially
     const [_,
 setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request status
-    const backGround = ["w1", "w2", "w3"];
     const navigate = useNavigate();
 
-    const handleImageChange = (direction: "next" | "prev") => {
-        const currentIndex = backGround.indexOf(currentImg);
-        const nextIndex = direction === "next" ? (currentIndex + 1) % backGround.length : (currentIndex - 1 + backGround.length) % backGround.length;
-        setCurrentImg(backGround[nextIndex]);
-    };
 
     const changePath = async () => {
         const flag = await getFlagData();
@@ -72,11 +64,11 @@ setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request 
             <Snowfall />
 
             <img
-                src={`/${currentImg}.jpg`}
+                src={`/back.jpg`}
                 className="w-full h-full animate-[ping_1s]"
                 alt="Background"
             />
-            {backGround.indexOf(currentImg) === 0 && (
+            {/* {backGround.indexOf(currentImg) === 0 && (
                 <div className="absolute text-xl font-bold inset-0 flex items-center justify-center">
                     <div className="bg-gray-100 font-playfair p-6 rounded-lg shadow-lg max-w-2xl w-full text-center">
                         <p className="text-2xl mb-4">
@@ -104,16 +96,16 @@ setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request 
                         </p>
                     </div>
                 </div>
-            )}
-            {backGround.indexOf(currentImg) === 2 && (
+            )} */}
+            {/* {backGround.indexOf(currentImg) === 2 && (
                 <div className="absolute inset-0 flex items-center justify-center">
                     <video src="/demo1.mp4" autoPlay={true} controls className="w-[50rem] border-4 border-pink-700 shadow-md shadow-pink-600 rounded-md">
                         <source src="/demo1.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                     </video>
                 </div>
-            )}
-            <div className="absolute inset-y-1/2 left-0 right-0 flex justify-between px-4 z-10">
+            )} */}
+            {/* <div className="absolute inset-y-1/2 left-0 right-0 flex justify-between px-4 z-10">
                 <button
                     className="bg-gray-800 flex items-center animate-scale text-white p-4 rounded-full"
                     title="Previous Image"
@@ -128,13 +120,13 @@ setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request 
                 >
                     <BiSolidRightArrow />
                 </button>
-            </div>
+            </div> */}
             <button
-                className="absolute bottom-0 right-2 motion-safe:animate-[bounce_1.2s_infinite] z-10"
+                className="absolute bottom-2 right-8 motion-safe:animate-[bounce_1.2s_infinite] z-10"
                 title="Click to Start"
                 onClick={changePath}
             >
-                <img src="/btn.png" className="w-36 h-36" alt="Start Button" />
+                <img src="/btnStart.png" className="w-24 h-24" alt="Start Button" />
             </button>
             <ToastContainer />
             {showDialog && (
