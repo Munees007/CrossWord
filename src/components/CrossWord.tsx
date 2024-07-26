@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import GridBtn from "./GridBtn";
 import Question from "./question";
 import { RiTimerFlashLine } from "react-icons/ri";
-
+import { submitFormData, updateGameData } from "./storeData";
+import { toast } from "react-toastify";
+import Form from "./Form";
+import 'react-toastify/ReactToastify.min.css'
 // Utility functions for managing local storage and expiration time
 const STORAGE_KEY = "crossword-answers";
 const SCORE_KEY = "crossword-score";
@@ -85,11 +88,30 @@ const CrossWord: React.FC = () => {
   const initialTimer = loadFromLocalStorage(TIMER_KEY) || 25 * 60; // 25 minutes in seconds
 
   const [inputs, setInputs] = useState<string[]>(initialInputs);
-  const [feedback, setFeedback] = useState<Record<string, boolean>>({});
+  const [feedback, setFeedback] = useState<Record<string, boolean | undefined>>({});
   const [score, setScore] = useState<number>(initialScore);
   const [timer, setTimer] = useState<number>(initialTimer);
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(!loadTimerFinished());
+  const [showForm, setShowForm] = useState<boolean>(() => {
+    const formSubmitted = localStorage.getItem('formSubmitted');
+    return formSubmitted ? false : true; // Show form if 'formSubmitted' is not set
+  });
 
+  const handleGameOver = async () => {
+    const gameData: any = {
+      score: score,
+      time: timer,
+    };
+    const userData = localStorage.getItem('userData');
+    const data = JSON.parse(userData!);
+    const rollNumber = data.rollNumber; // Ensure you have formData available here
+    try {
+      await updateGameData(rollNumber, gameData);
+      console.log('Game data updated on game over.');
+    } catch (error) {
+      console.error('Error updating game data:', error);
+    }
+  };
   // Save inputs, score, and timer to local storage on change
   useEffect(() => {
     saveToLocalStorage(STORAGE_KEY, inputs);
@@ -112,23 +134,33 @@ const CrossWord: React.FC = () => {
 
   // Timer effect
   useEffect(() => {
-    if (isTimerRunning && timer > 0) {
+    if (isTimerRunning && timer > 0 && showForm===false) {
       const intervalId = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
 
       return () => clearInterval(intervalId);
     } else if (timer === 0) {
+      handleGameOver()
       setIsTimerRunning(false); // Stop the timer when it reaches zero
       setTimerFinished(true); // Set timer finished flag to true
     }
-  }, [isTimerRunning, timer]);
+  }, [isTimerRunning, timer,showForm]);
 
   const handleChange = (index: number, value: string) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
   };
+
+  useEffect(()=>{
+    if(score === 20)
+    {
+        setTimerFinished(true);
+        setIsTimerRunning(false);
+        handleGameOver();
+    }
+  },[score])
 
 
   const getCellData = () => {
@@ -205,11 +237,15 @@ const CrossWord: React.FC = () => {
     col: number,
     isAcross: boolean
   ) => {
-    let isCorrect = true;
+    let isCorrect:any = true;
     answer.split('').forEach((char, index) => {
       const cellIndex = isAcross ? row * 20 + (col + index) : (row + index) * 20 + col;
 
-      if (inputs[cellIndex] !== char) {
+      if(inputs[cellIndex]==='')
+      {
+          isCorrect = undefined;
+      }
+      else if (inputs[cellIndex] !== char) {
         isCorrect = false;
       }
     });
@@ -218,7 +254,7 @@ const CrossWord: React.FC = () => {
 
 
   const checkAnswers = () => {
-    const newFeedback: Record<string, boolean> = {};
+    const newFeedback: Record<string, boolean | undefined> = {};
     let newScore = 0;
 
     Object.entries(data.across).forEach(([key, { answer, row, col }]) => {
@@ -245,7 +281,31 @@ const CrossWord: React.FC = () => {
     const remainingSeconds = seconds % 60;
     return `${minutes}m ${remainingSeconds}s`;
   };
-
+  
+  const handleFormSubmit = async (formData:any) => {
+    localStorage.setItem('formSubmitted', 'true');
+    try {
+      const gameData:any = {
+        score:score,
+        time : timer
+      }
+      const res = await submitFormData(formData,gameData);
+      if(res !== 'Duplicate')
+      {
+          toast.success("Thank you for the Details!")
+          setShowForm(false);
+      }
+      else
+      {
+          toast.error("User Already Exists")
+          setShowForm(false)
+      }
+      
+    } catch (error) {
+        console.log(error)
+    }
+    
+  };
   useEffect(()=>{
 
       if(score == 20)
@@ -298,6 +358,7 @@ const CrossWord: React.FC = () => {
           <RiTimerFlashLine size={30} className="" />
           <p className="text-2xl font-playfair">{formatTime(timer)}</p>
         </div>
+        {showForm && <Form onSubmit={handleFormSubmit} />}
     </div>
     </div>
   );

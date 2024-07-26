@@ -1,20 +1,16 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCDAgCzIWgOBt8btYb3DFuTziKSyfUaxfA",
-  authDomain: "word-wizard-2ca8d.firebaseapp.com",
-  databaseURL: "https://word-wizard-2ca8d-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "word-wizard-2ca8d",
-  storageBucket: "word-wizard-2ca8d.appspot.com",
-  messagingSenderId: "879123063451",
-  appId: "1:879123063451:web:c14d1fffd8bef9593fdc3e"
+  apiKey: "AIzaSyAAfo3x4H-sBIlC8YbOT2MLpw5IRrHzZBs",
+  authDomain: "crossword-18799.firebaseapp.com",
+  databaseURL: "https://crossword-18799-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "crossword-18799",
+  storageBucket: "crossword-18799.appspot.com",
+  messagingSenderId: "313914597761",
+  appId: "1:313914597761:web:4ff3dd74074f6a02978880"
 };
-
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

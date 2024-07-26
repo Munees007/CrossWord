@@ -17,9 +17,25 @@ const GridBtn: React.FC<GridBtnProps> = ({
   isCorrect,
   disabled = false,
 }) => {
+  // Determine the background color based on the new rules
+  let backgroundColor;
+  if (!isInteractive) {
+    backgroundColor = 'bg-[#D2DBEC]'; // white
+  } else if (value === '') {
+    backgroundColor = 'bg-yellow-700'; // yellow
+  }  else if (isCorrect === undefined) {
+    backgroundColor = 'bg-yellow-700'; // green
+  }else if (isCorrect)
+    {
+      backgroundColor = 'bg-green-500';
+    }
+  else {
+    backgroundColor = 'bg-red-600'; // red
+  }
+
   return (
     <div
-      className={`border ${isCorrect ? 'bg-green-500' : isInteractive ? 'bg-yellow-500' : 'bg-[#D2DBEC]'} border-black`}
+      className={`border ${backgroundColor} border-black`}
       style={{
         boxSizing: 'border-box',
         width: '100%',
@@ -51,10 +67,10 @@ const GridBtn: React.FC<GridBtnProps> = ({
         <div
           className={`absolute flex items-center justify-center ${questionNumber === 14 || questionNumber === 17 ? 'z-50' : 'z-10'}`}
           style={{
-            top: questionNumber === 14 || questionNumber === 17 ? '50%' : 0,
-            left: questionNumber === 14 || questionNumber === 17 ? '60%' : 0,
-            transform: questionNumber === 14 || questionNumber === 17 ? 'translate(-50%, -50%)' : 'none',
-            padding: questionNumber === 14 || questionNumber === 17 ? '2px' : '2px',
+            top: questionNumber === 14 || questionNumber === 17 || questionNumber === 6 ? '22%' : 0,
+            left: questionNumber === 14 || questionNumber === 17 || questionNumber === 6 ? '2.32rem' : 0,
+            transform: questionNumber === 14 || questionNumber === 17 || questionNumber === 6 ? 'translate(-50%, -50%)' : 'none',
+            padding: questionNumber === 14 || questionNumber === 17 || questionNumber === 6 ? '2px' : '2px',
           }}
         >
           <p className="text-xs text-black/50">{questionNumber}</p>
