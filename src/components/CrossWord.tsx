@@ -168,7 +168,7 @@ const CrossWord: React.FC = () => {
       });
     });
 
-    [14, 17].forEach((qNum) => {
+    [14, 17,6].forEach((qNum) => {
       const acrossEntry = Object.entries(data.across).find(
         ([key]) => parseInt(key, 10) === qNum
       );
