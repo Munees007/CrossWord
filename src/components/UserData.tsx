@@ -95,11 +95,8 @@ const UserDataComponent: React.FC = () => {
             <th className="py-3 w-fit border-r-2 bg-teal-600">ROLL NO</th>
             <th className="py-3 w-fit border-r-2 bg-teal-600">CLASS</th>
             <th className="py-3 w-fit border-r-2 bg-teal-600">EMAIL</th>
-            <th className="py-3 w-fit border-r-2 bg-teal-600">gridNum</th>
             <th className="py-3 w-fit border-r-2 bg-teal-600">SCORE</th>
-            <th className="py-3 w-fit border-r-2 bg-teal-600">CHANCE LEFT</th>
             <th className="py-3 w-fit border-r-2 bg-teal-600">TIME LEFT</th>
-            <th className="py-3 w-96 bg-teal-600">WORDS FOUND</th>
           </tr>
         </thead>
         <tbody>
@@ -109,20 +106,8 @@ const UserDataComponent: React.FC = () => {
               <td className="w-fit border-r-2 bg-teal-400 text-center">{user.formData.rollNumber}</td>
               <td className="w-fit border-r-2 bg-teal-400 text-center">{user.formData.className}</td>
               <td className="pl-2 w-fit border-r-2 bg-teal-400">{user.formData.email}</td>
-              <td className="pl-2 w-fit border-r-2 bg-teal-400">{user.gameData.gridNum + 1}</td>
               <td className="w-fit border-r-2 bg-teal-400 text-center">{user.gameData.score}</td>
-              <td className="w-fit border-r-2 bg-teal-400 text-center">{user.gameData.chanceleft}</td>
               <td className="w-fit border-r-2 bg-teal-400 text-center">{formatTime(user.gameData.time)}</td>
-              <td className="bg-teal-400 overflow-auto">
-                <div className="flex flex-col h-20">
-                  {
-                    user.gameData.wordsFound ?
-                  user.gameData.wordsFound.map((val, index) => (
-                    <p key={index} className="ml-2">{val.word}</p>
-                  )):<p className="ml-2">NO Words Found</p>
-                }
-                </div>
-              </td>
             </tr>
           ))}
         </tbody>

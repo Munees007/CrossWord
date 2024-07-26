@@ -23,6 +23,7 @@ setFullscreenRequested] = useState<boolean>(false); // Track fullscreen request 
             toast.info("Kindly wait for some more minutes to get started");
         }
     };
+    
 
     const enterFullScreen = () => {
         const elem = document.documentElement;
