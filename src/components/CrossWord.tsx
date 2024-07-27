@@ -6,6 +6,7 @@ import { submitFormData, updateGameData } from "./storeData";
 import { toast } from "react-toastify";
 import Form from "./Form";
 import 'react-toastify/ReactToastify.min.css'
+import { useNavigate } from "react-router-dom";
 // Utility functions for managing local storage and expiration time
 const STORAGE_KEY = "crossword-answers";
 const SCORE_KEY = "crossword-score";
@@ -83,7 +84,7 @@ const CrossWord: React.FC = () => {
   // Load initial state from local storage or initialize
 
   const initialInputs = loadFromLocalStorage(STORAGE_KEY) || Array(400).fill('');
-
+  const navigate = useNavigate();
   const initialScore = loadFromLocalStorage(SCORE_KEY) || 0;
   const initialTimer = loadFromLocalStorage(TIMER_KEY) || 25 * 60; // 25 minutes in seconds
 
@@ -92,6 +93,10 @@ const CrossWord: React.FC = () => {
   const [score, setScore] = useState<number>(initialScore);
   const [timer, setTimer] = useState<number>(initialTimer);
   const [isTimerRunning, setIsTimerRunning] = useState<boolean>(!loadTimerFinished());
+  const[isGameOver,setIsGameOver] = useState<boolean>(()=>{
+    const gameover = localStorage.getItem('gameOver');
+    return gameover === "true" ? true : false; 
+  });
   const [showForm, setShowForm] = useState<boolean>(() => {
     const formSubmitted = localStorage.getItem('formSubmitted');
     return formSubmitted ? false : true; // Show form if 'formSubmitted' is not set
@@ -107,6 +112,8 @@ const CrossWord: React.FC = () => {
     const rollNumber = data.rollNumber; // Ensure you have formData available here
     try {
       await updateGameData(rollNumber, gameData);
+      setIsGameOver(true);
+      localStorage.setItem("gameOver","true");
       console.log('Game data updated on game over.');
     } catch (error) {
       console.error('Error updating game data:', error);
@@ -131,6 +138,13 @@ const CrossWord: React.FC = () => {
   useEffect(() => {
     checkAnswers();
   }, []);
+
+  useEffect(()=>{
+      if(isGameOver)
+      {
+        navigate('/end');
+      }
+  },[isGameOver])
 
   // Timer effect
   useEffect(() => {
@@ -322,7 +336,8 @@ const CrossWord: React.FC = () => {
       </div>
       <div className="flex flex-col p-4 w-full h-full inset-0 justify-center items-center">
         <div className="flex flex-col">
-          <div className="text-lg text-white">Score: {score}</div>
+          <p className="text-2xl text-white font-bold font-playfair mb-4">PUZZLE MYSTRIES</p>
+          <div className="text-2xl font-playfair absolute  bottom-2 right-36 text-white">SCORE: {score}</div>
           {/* <div className="text-lg">{formatTime(timer)}</div> */}
         </div>
         <div

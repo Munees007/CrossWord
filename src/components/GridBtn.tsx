@@ -22,9 +22,9 @@ const GridBtn: React.FC<GridBtnProps> = ({
   if (!isInteractive) {
     backgroundColor = 'bg-[#D2DBEC]'; // white
   } else if (value === '') {
-    backgroundColor = 'bg-yellow-700'; // yellow
+    backgroundColor = 'bg-[#2b2d42]'; // yellow
   }  else if (isCorrect === undefined) {
-    backgroundColor = 'bg-yellow-700'; // green
+    backgroundColor = 'bg-[#2b2d42]'; // green
   }else if (isCorrect)
     {
       backgroundColor = 'bg-green-500';
@@ -55,7 +55,7 @@ const GridBtn: React.FC<GridBtnProps> = ({
           maxLength={1}
           value={value}
           onChange={(e) => onChange?.(e.target.value.toUpperCase())}
-          className={`w-full h-full font-bold bg-transparent border-none text-center ${disabled ? 'cursor-not-allowed' : ''}`}
+          className={`w-full h-full font-bold text-[#faf3f6] bg-transparent border-none text-center ${disabled ? 'cursor-not-allowed' : ''}`}
           style={{ boxSizing: 'border-box' }}
           disabled={disabled}
           aria-label={`Cell ${questionNumber}`}
@@ -73,7 +73,7 @@ const GridBtn: React.FC<GridBtnProps> = ({
             padding: questionNumber === 14 || questionNumber === 17 || questionNumber === 6 ? '2px' : '2px',
           }}
         >
-          <p className="text-xs text-black/50">{questionNumber}</p>
+          <p className="text-xs text-white/50">{questionNumber}</p>
         </div>
       )}
     </div>
