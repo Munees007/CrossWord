@@ -125,7 +125,17 @@ const CrossWord: React.FC = () => {
     saveToLocalStorage(SCORE_KEY, score);
     saveToLocalStorage(TIMER_KEY, timer);
   }, [inputs, score, timer]);
+  useEffect(()=>{
+    const flag = localStorage.getItem('timeFlag');
+    if(flag)
+    {
 
+    }
+    else
+    {
+        navigate('/');
+    }
+},[])
   // Set expiration time when component mounts
   useEffect(() => {
     if (isExpired()) {
@@ -329,15 +339,24 @@ const CrossWord: React.FC = () => {
   },[score])
 
   return (
-
     <div className="bg-[#3052A1] w-full h-screen items-center flex">
       <div className="w-[65rem] h-screen overflow-auto bg-blue-400">
         <Question />
       </div>
       <div className="flex flex-col p-4 w-full h-full inset-0 justify-center items-center">
-        <div className="flex flex-col">
-          <p className="text-2xl text-white font-bold font-playfair mb-4">PUZZLE MYSTRIES</p>
-          <div className="text-2xl font-playfair absolute  bottom-2 right-36 text-white">SCORE: {score}</div>
+        <div className="flex flex-col w-full">
+          <p className="text-2xl text-center text-white font-bold font-playfair mb-4">
+            PUZZLE MYSTRIES
+          </p>
+          <div className="flex mx-10 mb-2 justify-between items-center">
+            <div className="text-2xl font-playfair text-white">
+              SCORE: {score}
+            </div>
+            <div className="flex items-center gap-2 text-white py-2 px-4 rounded">
+              <RiTimerFlashLine size={30} className="" />
+              <p className="text-2xl font-playfair">{formatTime(timer)}</p>
+            </div>
+          </div>
           {/* <div className="text-lg">{formatTime(timer)}</div> */}
         </div>
         <div
@@ -369,12 +388,8 @@ const CrossWord: React.FC = () => {
         >
           Check Answers
         </button>
-        <div className="fixed flex flex-col items-center bottom-0 right-8 text-white py-2 px-4 rounded">
-          <RiTimerFlashLine size={30} className="" />
-          <p className="text-2xl font-playfair">{formatTime(timer)}</p>
-        </div>
         {showForm && <Form onSubmit={handleFormSubmit} />}
-    </div>
+      </div>
     </div>
   );
 };
