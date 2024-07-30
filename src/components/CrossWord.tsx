@@ -86,7 +86,7 @@ const CrossWord: React.FC = () => {
   const initialInputs = loadFromLocalStorage(STORAGE_KEY) || Array(400).fill('');
   const navigate = useNavigate();
   const initialScore = loadFromLocalStorage(SCORE_KEY) || 0;
-  const initialTimer = loadFromLocalStorage(TIMER_KEY) || 60 * 60; // 25 minutes in seconds
+  const initialTimer = loadFromLocalStorage(TIMER_KEY) || 45 * 60; // 25 minutes in seconds
 
   const [inputs, setInputs] = useState<string[]>(initialInputs);
   const [feedback, setFeedback] = useState<Record<string, boolean | undefined>>({});
